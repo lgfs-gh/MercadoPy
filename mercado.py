@@ -11,38 +11,22 @@ carrinho: List[Dict[Produto, int]] = []
 
 
 def main() -> None:
-    cabecario()
     menu()
-    opcoes()
 
 
-def cabecario():
+def menu() -> None:
     print('======================================================================\n'
           '================= ' + cs('SISTEMA DE MERCADO SIMPLES', 'green') + ' =========================\n'
           '======================================================================')
-
-
-def menu():
     print('\nDIGITE o número indicado para selecionar uma das opções abaixo:\n'
           '1) Cadastrar produto\n'
           '2) Listar produto\n'
           '3) Comprar produto\n'
           '4) Vizualizar carrinho\n'
           '5) Fechar pedido\n'
-          '6) Ver estas opções novamente\n'
-          '7) Sair\n')
+          '6) Sair\n')
 
-
-def opcoes():
-    opcao: int = 10
-    while opcao == 10:
-        opcao = int(input('>>> DIGITE: '))
-        if 0 < opcao < 8:
-            break
-        else:
-            print(cs('>>> OPÇÃO INVÁLIDA, TENTE NOVAMENTE <<<', 'red'))
-            opcao = 10
-            sleep(1)
+    opcao = int(input('>>> DIGITE: '))
 
     if opcao == 1:
         cadastrar_produto()
@@ -55,11 +39,13 @@ def opcoes():
     elif opcao == 5:
         fechar_pedido()
     elif opcao == 6:
-        menu()
-    elif opcao == 7:
         print('Sistema fechado...')
         sleep(2)
         exit(0)
+    else:
+        print(cs('>>> OPÇÃO INVÁLIDA, TENTE NOVAMENTE <<<', 'red'))
+        sleep(1)
+        menu()
 
 
 def cadastrar_produto() -> None:
@@ -75,7 +61,7 @@ def cadastrar_produto() -> None:
 
     print(f'O {produto.nome} foi cadastrado com sucesso!')
     sleep(1)
-    opcoes()
+    menu()
 
 
 def listar_produtos() -> None:
@@ -87,7 +73,7 @@ def listar_produtos() -> None:
     else:
         print(cs('>>> Ainda não existem produtos cadastrados! <<<', 'red'))
         sleep(1)
-        opcoes()
+        menu()
 
 
 def comprar_produto() -> None:
@@ -110,27 +96,27 @@ def comprar_produto() -> None:
                         print(f'O produto {produto.nome} agora possui {quant + 1} unidades no carrinho.')
                         tem_no_carrinho = True
                         sleep(1)
-                        opcoes()
+                        menu()
                 if not tem_no_carrinho:
                     prod = {produto: 1}
                     carrinho.append(prod)
                     print(f'O produto {produto.nome} foi adicionado ao carrinho.')
                     sleep(1)
-                    opcoes()
+                    menu()
             else:
                 item = {produto: 1}
                 carrinho.append(item)
                 print(f'O produto {produto.nome} foi adicionado ao carrinho.')
                 sleep(1)
-                opcoes()
+                menu()
         else:
             print(cs(f'O produto com código ({codigo}) não foi encontrado!', 'red'))
             sleep(1)
-            opcoes()
+            menu()
     else:
         print(cs('>>> Ainda não existem produtos à venda <<<', 'red'))
         sleep(1)
-        opcoes()
+        menu()
 
 
 def visualiar_carrinho() -> None:
@@ -142,11 +128,11 @@ def visualiar_carrinho() -> None:
                 print(f'Quantidade: {dados[1]}\n'
                       f'---------------------------------------')
                 sleep(1)
-                opcoes()
+                menu()
     else:
         print(cs('>>> Ainda não existem produtos no carrinho! <<<', 'red'))
         sleep(1)
-        opcoes()
+        menu()
 
 
 def fechar_pedido() -> None:
@@ -168,7 +154,7 @@ def fechar_pedido() -> None:
     else:
         print(cs('>>> Carrinho está vazio <<<', 'red'))
         sleep(1)
-        opcoes()
+        menu()
 
 
 def produto_por_codigo(codigo: int) -> Produto:
