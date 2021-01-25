@@ -20,7 +20,7 @@ def menu() -> None:
           '======================================================================')
     print('\nDIGITE o número indicado para selecionar uma das opções abaixo:\n'
           '1) Cadastrar produto\n'
-          '2) Listar produto\n'
+          '2) Listar produtos\n'
           '3) Comprar produto\n'
           '4) Vizualizar carrinho\n'
           '5) Fechar pedido\n'
@@ -70,6 +70,7 @@ def listar_produtos() -> None:
         for produto in produtos:
             print(produto)
             sleep(1)
+        menu()
     else:
         print(cs('>>> Ainda não existem produtos cadastrados! <<<', 'red'))
         sleep(1)
@@ -125,10 +126,10 @@ def visualiar_carrinho() -> None:
         for item in carrinho:
             for dados in item.items():
                 print(dados[0])
-                print(f'Quantidade: {dados[1]}\n'
-                      f'---------------------------------------')
+                print(f'Quantidade: {dados[1]}\n')
+                print(f'---------------------------------------')
                 sleep(1)
-                menu()
+        menu()
     else:
         print(cs('>>> Ainda não existem produtos no carrinho! <<<', 'red'))
         sleep(1)
@@ -149,7 +150,10 @@ def fechar_pedido() -> None:
                 sleep(1)
         print(f'Sua fatura é: {formata_moeda(valor_total)}')
         carrinho.clear()
-        sleep(2)
+        sleep(1)
+        print(cs('--- Simulando próximo cliente ----', 'green'))
+        sleep(1)
+        menu()
 
     else:
         print(cs('>>> Carrinho está vazio <<<', 'red'))
